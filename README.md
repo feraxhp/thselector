@@ -15,7 +15,7 @@ It uses the `prefers-color-scheme` and css trics to be as simple as posible. you
 	...
 	<meta id="fth-meta" name="color-scheme" content="dark ligth"> <!-- 1' -->
 	<script src="https://cdn.jsdelivr.net/gh/feraxhp/thselector@v0.0.1/load-theme.js"></script> <!-- 2' -->
-	<script src="https://cdn.jsdelivr.net/gh/feraxhp/thselector@v0.0.1/load-theme.js" defer></script> <!-- 3' -->
+	<script src="https://cdn.jsdelivr.net/gh/feraxhp/thselector@v0.0.1/select-theme.js" defer></script> <!-- 3' -->
 	...
 </head>
 <body>
