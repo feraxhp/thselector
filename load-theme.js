@@ -44,13 +44,13 @@ window.th = {
           if (this.verbose) console.debug("Error saving the theme:", e)
         }
         
-        this.dispatchThemeChangeEvent(finalTheme);
+        this.dispatchThemeChangeEvent(finalTheme, theme === 'system');
         
         return finalTheme;
     },
     
-    dispatchThemeChangeEvent(theme) {
-        const event = new CustomEvent('th-changed', { detail: { theme } });
+    dispatchThemeChangeEvent(theme, isSistem) {
+        const event = new CustomEvent('th-changed', { detail: { theme, isSistem } });
         document.dispatchEvent(event);
     },
     
