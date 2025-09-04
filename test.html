@@ -25,7 +25,7 @@
         <div id="content" class="markdown-body"></div>
     </section>
     <script>
-      window.th.onThemeChange = (theme) => { alert("theme change to:"+theme) }
+      document.addEventListener("th-changed", (e) => { alert("theme change to:"+e.detail.theme) })
     </script>
 </body>
 </html>

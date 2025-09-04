@@ -41,33 +41,35 @@ window.th = {
         
         try { localStorage.setItem(THEME_STORAGE_KEY, theme); }
         catch (e) { 
-          if (window.th.verbose) console.debug("Error saving the theme:", e)
+          if (this.verbose) console.debug("Error saving the theme:", e)
         }
         
-        try { window.th.onThemeChange(finalTheme); }
-        catch(e) {
-          if (window.th.verbose) console.debug("Error in custom 'onThemeChange':", e)
-        }
+        this.dispatchThemeChangeEvent(finalTheme);
         
         return finalTheme;
+    },
+    
+    dispatchThemeChangeEvent(theme) {
+        const event = new CustomEvent('th-changed', { detail: { theme } });
+        document.dispatchEvent(event);
     },
     
     init() {
       try {
           const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) ?? 'system';
-          window.th.setTheme(savedTheme);
+          this.setTheme(savedTheme);
       } catch (error) {
-          if (window.th.verbose) console.debug('Error loading theme:', error);
-          window.th.setTheme('system');
+          if (this.verbose) console.debug('Error loading theme:', error);
+          this.setTheme('system');
       }
       
       if (!('matchMedia' in window)) {
-        if (window.th.verbose) console.debug("The 'matchMedia' parameter is not present")
+        if (this.verbose) console.debug("The 'matchMedia' parameter is not present")
       }
       
       const listener = () => {
         const currentTheme = localStorage.getItem(THEME_STORAGE_KEY);
-        if (currentTheme === 'system') { window.th.setTheme('system'); }
+        if (currentTheme === 'system') { this.setTheme('system'); }
       }
       
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', listener);
