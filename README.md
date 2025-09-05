@@ -1,5 +1,7 @@
 # thselector
 
+[![pages-build-deployment](https://github.com/feraxhp/thselector/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/feraxhp/thselector/actions/workflows/pages/pages-build-deployment)
+
 The simplest way to add theme management to your HTML. Easy to configure and set up.
 
 I think that the purpose of the web is to be simple. I am tired of complicated things to achieve simple use cases, and for that reason I developed this simple theme selector. With no more than 4 lines of pure HTML, you will be able to add simple (light, dark, system) control theme for your web.
