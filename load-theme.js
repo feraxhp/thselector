@@ -2,18 +2,23 @@ const THEME_STORAGE_KEY = '[fx-theme]';
 const META_ID = 'fth-meta';
 
 window.th = {
+    verbose: false,
     themes: {
         light: 'light',
         dark: 'dark',
         system: 'dark light'
     },
 
-    createMetaTag(content) {
-        const meta = document.createElement('meta');
-        meta.id = META_ID;
-        meta.name = 'color-scheme';
+    onThemeChange() { },
+    setMetaTag(content) {
+        let meta = document.getElementById(META_ID);
+        if (!meta) {
+            meta = document.createElement('meta');
+            meta.id = META_ID;
+            meta.name = 'color-scheme';
+            document.head.appendChild(meta);
+        }
         meta.content = content;
-        return meta;
     },
 
     getSystemTheme() {
@@ -28,34 +33,51 @@ window.th = {
             theme = 'system';
         }
         
-        let meta = document.getElementById(META_ID);
-        if (!meta) {
-            meta = this.createMetaTag(this.themes[theme]);
-            document.head.appendChild(meta);
-        } else {
-            meta.content = this.themes[theme];
-        }
+        this.setMetaTag(this.themes[theme] || this.themes.system);
         
         const finalTheme = theme === 'system' ? this.getSystemTheme() : theme;
+        
         document.documentElement.setAttribute('theme', finalTheme);
         
-        localStorage.setItem(THEME_STORAGE_KEY, theme);
-    
+        try { localStorage.setItem(THEME_STORAGE_KEY, theme); }
+        catch (e) { 
+          if (this.verbose) console.debug("Error saving the theme:", e)
+        }
+        
+        this.dispatchThemeChangeEvent(finalTheme, theme === 'system');
+        
         return finalTheme;
+    },
+    
+    dispatchThemeChangeEvent(theme, isSistem) {
+        const event = new CustomEvent('th-changed', { detail: { theme, isSistem } });
+        document.dispatchEvent(event);
+    },
+    
+    init() {
+      try {
+          const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) ?? 'system';
+          this.setTheme(savedTheme);
+      } catch (error) {
+          if (this.verbose) console.debug('Error loading theme:', error);
+          this.setTheme('system');
+      }
+      
+      if (!('matchMedia' in window)) {
+        if (this.verbose) console.debug("The 'matchMedia' parameter is not present")
+      }
+      
+      const listener = () => {
+        const currentTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        if (currentTheme === 'system') { this.setTheme('system'); }
+      }
+      
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', listener);
+      
+      return () => {
+        window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', listener);
+      }
     }
 }
 
-try {
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) ?? 'system';
-    window.th.setTheme(savedTheme);
-} catch (error) {
-    console.error('Error loading theme:', error);
-    window.th.setTheme('system');
-}
-
-if ('matchMedia' in window) {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-            const currentTheme = localStorage.getItem(THEME_STORAGE_KEY);
-            if (currentTheme === 'system') { window.th.setTheme('system'); }
-        });
-}
+window.th.remove = window.th.init();

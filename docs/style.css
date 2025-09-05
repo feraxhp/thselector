@@ -9,6 +9,55 @@
         var(--duration) var(--animation) stroke;
 }
 
+/* Loader */
+.loader {
+  width: 48px;
+  height: 48px;
+  background: var(--ctp-overlay0);
+  display: block;
+  margin: 20px auto;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotationBack 1s ease-in-out infinite reverse;
+}
+
+.loader::before {
+  content: '';
+  box-sizing: border-box;
+  left: 0;
+  top: 0;
+  transform: rotate(45deg);
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background: var(--ctp-overlay0);
+  box-shadow: 0 0 5px hsl(from var(--ctp-text) h s l / 0.15);
+}
+
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: var(--ctp-text);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes rotationBack {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+.text:has(#content .loader), #content:has(.loader) {
+    background-color: transparent;
+}
+
+/* Theme */
 .theme,
 body {
     background-color: var(--ctp-base);
@@ -21,6 +70,7 @@ body {
 .text {
     background-color: var(--ctp-mantle);
     border-radius: 0.5rem;
+    margin-bottom: 10rem;
 }
 body {
     max-width: 50rem;
