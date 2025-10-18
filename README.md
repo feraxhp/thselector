@@ -4,7 +4,7 @@
 
 > [!warning]
 > This _repo_ has been _deprecated_ and will be deleted in the future
-> in other to continue using it visit [_ferajs/thselector_](https://github.com/feraxjs/thselector).
+> in other to continue using it visit [_feraxjs/thselector_](https://github.com/feraxjs/thselector).
 
 The simplest way to add theme management to your HTML. Easy to configure and set up.
 
