@@ -2,6 +2,10 @@
 
 [![pages-build-deployment](https://github.com/feraxhp/thselector/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/feraxhp/thselector/actions/workflows/pages/pages-build-deployment)
 
+> [!warning]
+> This _repo_ has been _deprecated_ and will be deleted in the future
+> in other to continue using it visit [_ferajs/thselector_](https://github.com/feraxjs/thselector).
+
 The simplest way to add theme management to your HTML. Easy to configure and set up.
 
 I think that the purpose of the web is to be simple. I am tired of complicated things to achieve simple use cases, and for that reason I developed this simple theme selector. With no more than 4 lines of pure HTML, you will be able to add simple (light, dark, system) control theme for your web.
@@ -65,9 +69,3 @@ I provide some examples to show how the color management is done:
 
 ---
 As mentioned before, this tool is designed for simplicity while maintaining full flexibility for your specific needs.
-
-
-## Planed
-
-- [ ] add more theme selectors
-- [ ] bundle to npm

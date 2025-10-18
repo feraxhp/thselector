@@ -81,3 +81,4 @@ window.th = {
 }
 
 window.th.remove = window.th.init();
+console.warn("thselector has moved to https://github.com/feraxjs/thselector. the current implementations has been depracated and schedule for deletion")
